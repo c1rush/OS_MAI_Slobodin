@@ -1,6 +1,7 @@
 #include "utils.h"
 #include <unistd.h>
 #include <cstring>
+#include <cstdio>
 
 void CreatePipe(int pipeFd[2]) {
     if (pipe(pipeFd) == -1) {
@@ -9,14 +10,19 @@ void CreatePipe(int pipeFd[2]) {
     }
 }
 
-std::string ReadString(std::istream& stream) {
-    std::string input;
-    std::getline(stream, input);
-    return input;
+void ReadData(const std::function<void(const std::string&)>& handler, std::basic_istream<char>& stream){
+    std::string buff;
+
+    while (std::getline(stream, buff)){
+        if (buff.empty()){
+            return;
+        }
+        handler(buff + '\n');
+    }
 }
 
-void Exec(const char * pathToChild, const std::string& exeFileName, const std::string& fileName) {
-    execl(pathToChild, exeFileName.c_str(), fileName.c_str(), NULL);
-    perror("exec failed");
-    exit(EXIT_FAILURE);    
+std::string Modify(const std::string& str) {
+    std::string result = str;
+    std::reverse(result.begin(), result.end());
+    return result;
 }

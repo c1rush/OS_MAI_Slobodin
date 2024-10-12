@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <functional>
 
 enum PipeEnd {
     READ_END,
@@ -10,7 +11,9 @@ enum PipeEnd {
 };
 
 void CreatePipe(int pipeFd[2]);
-std::string ReadString(std::istream& stream);
-void Exec(const char * pathToChild, const std::string& exeFileName, const std::string& fileName);
+
+void ReadData(const std::function<void(const std::string&)>& handler, std::basic_istream<char>& stream);
+
+std::string Modify(const std::string& str);
 
 #endif

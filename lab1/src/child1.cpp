@@ -1,34 +1,29 @@
 #include "utils.h"
-#include <fstream>
 #include <unistd.h>
-#include <algorithm>
+#include <iostream>
+#include <cstdio>
 
-int main(const int argc, const char* argv[]) {
-    if(argc != 2) {
-        std::perror("Necessary arguments were not provided to first child process");
-        exit(EXIT_FAILURE);
+int main(int argc, char** argv) {
+    if (argc != 1) {
+        std::cerr << "Дочерний процесс 1: Необходимо передать имя файла для записи как аргумент" << std::endl;
+        return 1;
     }
 
-    const char* fileName = argv[1];
-    std::ofstream outFile(fileName, std::ios::app);
-
-    if(!outFile.is_open()) {
-        std::perror("Failed to open file for write");
-        exit(EXIT_FAILURE);
+    FILE* file = fopen(argv[0], "w");
+    if (!file) {
+        std::perror("Дочерний процесс 1: Не удалось открыть файл");
+        return 1;
     }
 
-    std::string input;
-    char buffer[1024];
-    ssize_t bytesRead;
+    dup2(fileno(file), STDOUT_FILENO);
 
-    while ((bytesRead = read(STDIN_FILENO, buffer, sizeof(buffer) - 1)) > 0) {
-        std::string input(buffer, bytesRead);
+    ReadData([](const std::string& str) {
+        std::string res = Modify(str);
+        write(STDOUT_FILENO, res.c_str(), res.size());
+    }, std::cin);
 
-        std::reverse(input.begin(), input.end());
-        outFile << input << '\n';
-        outFile.flush();
-    }
+    fclose(file);
+    close(STDOUT_FILENO);
 
-    outFile.close();
     return 0;
 }

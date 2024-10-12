@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <parent.h>
+#include "../lab1/include/utils.h"
 #include <cstdio>
 #include <filesystem>
 #include <sstream>
@@ -11,26 +12,25 @@ namespace fs = std::filesystem;
 // Класс для временного файла
 class TempFile {
 public:
-    TempFile(const std::string& filename) : filename_(filename) {
-        std::ofstream file(filename_);
+    TempFile(const std::string& fName) : filename(fName) {
+        std::ofstream file(filename);
         if (!file) {
-            throw std::runtime_error("Не удалось создать временный файл: " + filename_);
+            throw std::runtime_error("Не удалось создать временный файл: " + filename);
         }
     }
 
     const std::string& getFilename() const {
-        return filename_;
+        return filename;
     }
 
     ~TempFile() {
-        std::remove(filename_.c_str());
+        std::remove(filename.c_str());
     }
 
 private:
-    std::string filename_;
+    std::string filename;
 };
 
-// Функция для чтения содержимого файла
 std::string readFileContent(const std::string& filename) {
     std::ifstream file(filename);
     std::stringstream buffer;
@@ -38,7 +38,13 @@ std::string readFileContent(const std::string& filename) {
     return buffer.str();
 }
 
-// Тест на проверку работы с несколькими строками
+TEST(UtilsTest, ModifyStringTest){
+    std::string str = "qwerty";
+    std::string res = "ytrewq";
+    ASSERT_EQ(res, Modify(str));
+}
+
+
 TEST(ParentProcessTest, CheckStringsInFiles) {
     TempFile filename1("file1.txt");
     TempFile filename2("file2.txt");
@@ -50,7 +56,7 @@ TEST(ParentProcessTest, CheckStringsInFiles) {
     ASSERT_NE(pathToChild2, nullptr) << "Переменная окружения CHILD2_PATH не установлена";
 
     // Входной поток с тестовыми строками
-    std::istringstream input_stream("qwerty\n12345\nabc\n123\n");
+    std::istringstream input_stream("/Users/c1rush/OS_MAI_Slobodin/build/file1.txt\n/Users/c1rush/OS_MAI_Slobodin/build/file2.txt\nabc\n123\n");
 
     // Вызов родительского процесса
     ParentRoutine(pathToChild1, pathToChild2, input_stream);
@@ -59,8 +65,8 @@ TEST(ParentProcessTest, CheckStringsInFiles) {
     std::string content1 = readFileContent(filename1.getFilename());
     std::string content2 = readFileContent(filename2.getFilename());
 
-    EXPECT_EQ(content1, "ytrewq\ncba\n");  // Ожидаемый результат для нечетных строк
-    EXPECT_EQ(content2, "54321\n321\n");   // Ожидаемый результат для четных строк
+    EXPECT_EQ(content1, "\ncba");  // Ожидаемый результат для нечетных строк
+    EXPECT_EQ(content2, "\n321");   // Ожидаемый результат для четных строк
 }
 
 // Тест на пустой ввод
@@ -85,4 +91,9 @@ TEST(ParentProcessTest, EmptyInput) {
     // Проверка, что файлы пустые
     EXPECT_EQ(content1, "");
     EXPECT_EQ(content2, "");
+}
+
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
