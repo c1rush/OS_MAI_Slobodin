@@ -4,42 +4,52 @@
 #include <unistd.h>
 #include <cstring>
 
-void ParentRoutine(const char* pathToChild1, const char* pathToChild2, FILE* stream) {
-    char fileName1[256], fileName2[256];
-    fscanf(stream, "%s\n", fileName1);
-    fscanf(stream, "%s\n", fileName2);
+void ParentRoutine(const char* pathToChild1, const char* pathToChild2, std::istream& stream) {
+    std::string fileName1, fileName2;
+    std::getline(stream, fileName1);
+    std::getline(stream, fileName2);  
 
     int pipe1[2], pipe2[2];
     CreatePipe(pipe1);
     CreatePipe(pipe2);
 
-    int pid1 = fork();
+    pid_t pid1 = fork();
+
+    if (pid1 < 0) {
+        std::perror("Failed to fork child1");
+        exit(EXIT_FAILURE);
+    }
 
     if (pid1 == 0) {
         close(pipe1[WRITE_END]);
-        dup2(pipe1[READ_END], 0);
-        execl(pathToChild1, "child1", fileName1, NULL);
-        perror("exec failed"); // Обработка ошибок
-        exit(EXIT_FAILURE);
+        dup2(pipe1[READ_END], STDIN_FILENO);
+        close(pipe1[READ_END]);
+        Exec(pathToChild1, "child1", fileName1);
     }
 
-    int pid2 = fork();
+    pid_t pid2 = fork();
+
+    if (pid2 < 0) {
+        std::perror("Failed to fork child2");
+        exit(EXIT_FAILURE);
+    }
 
     if (pid2 == 0) {
         close(pipe2[WRITE_END]);
-        dup2(pipe2[READ_END], 0);
-        execl(pathToChild2, "child2", fileName2, NULL);
-        perror("exec failed"); // Обработка ошибок
-        exit(EXIT_FAILURE);
-    }
+        dup2(pipe2[READ_END], STDIN_FILENO);
+        close(pipe2[READ_END]);
+        Exec(pathToChild2, "child2", fileName2);
+    } 
 
+    // В родительском процессе закроем пайпы на чтение
     close(pipe1[READ_END]);
     close(pipe2[READ_END]);
 
     std::string input;
-    int lineNumber = 1; // Инициализируем номер строки
+    size_t lineNumber{1};
 
-    while ((input = ReadString(std::cin)).length() != 0) {
+    while (std::getline(stream, input)) {     
+        if (input.empty()) continue;
         if (lineNumber % 2 == 1) {
             write(pipe1[WRITE_END], input.c_str(), input.length());
         } else {

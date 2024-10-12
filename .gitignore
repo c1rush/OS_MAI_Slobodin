@@ -6,4 +6,4 @@ build/*
 
 *.a
 
-example.txt
+*.txt

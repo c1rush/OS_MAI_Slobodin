@@ -2,11 +2,15 @@
 #include <iostream>
 
 int main() {
-    const char* pathToChild1 = "./child";  // Указываем путь к программе дочернего процесса 1
-    const char* pathToChild2 = "./child";  // Указываем путь к программе дочернего процесса 2
 
-    std::cout << "Введите строки:\n";
-    ParentRoutine(pathToChild1, pathToChild2, std::cin);
+    ParentRoutine(std::getenv("CHILD1_PATH"), std::getenv("CHILD2_PATH"), std::cin);
 
     return 0;
 }
+// Установить путь к исполняемым файлам(если делаем из папки build):
+// export CHILD1_PATH=$(pwd)/lab1/child1
+// export CHILD2_PATH=$(pwd)/lab1/child2
+
+// Проверить установку пути:
+// echo $CHILD1_PATH
+// echo $CHILD2_PATH

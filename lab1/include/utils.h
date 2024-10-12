@@ -11,5 +11,6 @@ enum PipeEnd {
 
 void CreatePipe(int pipeFd[2]);
 std::string ReadString(std::istream& stream);
+void Exec(const char * pathToChild, const std::string& exeFileName, const std::string& fileName);
 
 #endif
