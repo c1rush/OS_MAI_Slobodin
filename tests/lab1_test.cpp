@@ -65,8 +65,8 @@ TEST(ParentProcessTest, CheckStringsInFiles) {
     std::string content1 = readFileContent(filename1.getFilename());
     std::string content2 = readFileContent(filename2.getFilename());
 
-    EXPECT_EQ(content1, "\ncba");  // Ожидаемый результат для нечетных строк
-    EXPECT_EQ(content2, "\n321");   // Ожидаемый результат для четных строк
+    EXPECT_EQ(content1, "cba\n");  // Ожидаемый результат для нечетных строк
+    EXPECT_EQ(content2, "321\n");   // Ожидаемый результат для четных строк
 }
 
 // Тест на пустой ввод

@@ -22,7 +22,14 @@ void ReadData(const std::function<void(const std::string&)>& handler, std::basic
 }
 
 std::string Modify(const std::string& str) {
-    std::string result = str;
-    std::reverse(result.begin(), result.end());
+    std::string result;
+    if (!str.empty() && str.back() == '\n') {
+        result = str.substr(0, str.size() - 1);
+        std::reverse(result.begin(), result.end());
+        result += '\n';
+    } else {
+        result = str;
+        std::reverse(result.begin(), result.end());
+    }
     return result;
 }
