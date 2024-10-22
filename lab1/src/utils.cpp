@@ -10,7 +10,7 @@ void CreatePipe(int pipeFd[2]) {
     }
 }
 
-void ReadData(const std::function<void(const std::string&)>& handler, std::basic_istream<char>& stream){
+void ReadData(const std::function<void(const std::string&)>& handler, std::istream& stream){
     std::string buff;
 
     while (std::getline(stream, buff)){

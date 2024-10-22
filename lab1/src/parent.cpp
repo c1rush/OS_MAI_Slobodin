@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <iostream>
 
-bool StartProcess(int * pipe, const std::string& childPath, std::string& filePath) {
+bool StartProcess(int * pipe, const char* childPath, const char* filePath) {
     pid_t pid = fork();
 
     if (pid == -1){
@@ -16,7 +16,7 @@ bool StartProcess(int * pipe, const std::string& childPath, std::string& filePat
         close(pipe[WRITE_END]);
         dup2(pipe[READ_END], READ_END);
 
-        if (execl(childPath.c_str(), const_cast<char *>(filePath.c_str()), NULL) == -1){
+        if (execl(childPath, filePath, nullptr) == -1){
             std::cout << "Something went wrong when creating process " << childPath << std::endl;
         }
     }
@@ -25,12 +25,13 @@ bool StartProcess(int * pipe, const std::string& childPath, std::string& filePat
 }
 
 void ParentRoutine(const char* pathToChild1, const char* pathToChild2, std::istream& input) {
-    std::string filename1, filename2;
+    char filename1[256];
+    char filename2[256];
 
     std::cout << "Enter filename for 1 process: " << std::endl;
-    std::getline(input, filename1);
+    input.getline(filename1, 256);
     std::cout << "Enter filename for 2 process: " << std::endl;
-    std::getline(input, filename2);
+    input.getline(filename2, 256);
 
     int pipe1[2], pipe2[2];
     CreatePipe(pipe1);

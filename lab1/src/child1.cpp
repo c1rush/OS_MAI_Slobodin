@@ -22,7 +22,6 @@ int main(int argc, char** argv) {
         write(STDOUT_FILENO, res.c_str(), res.size());
     }, std::cin);
 
-    fclose(file);
     close(STDOUT_FILENO);
 
     return 0;

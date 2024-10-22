@@ -2,8 +2,20 @@
 #include <iostream>
 
 int main() {
+    const char* child1Path = std::getenv("CHILD1_PATH");
+    const char* child2Path = std::getenv("CHILD2_PATH");
 
-    ParentRoutine(std::getenv("CHILD1_PATH"), std::getenv("CHILD2_PATH"), std::cin);
+    if (child1Path == nullptr) {
+        std::cerr << "Ошибка: Переменная окружения CHILD1_PATH не установлена." << std::endl;
+        return 1;
+    }
+    
+    if (child2Path == nullptr) {
+        std::cerr << "Ошибка: Переменная окружения CHILD2_PATH не установлена." << std::endl;
+        return 1;
+    }
+
+    ParentRoutine(child1Path, child2Path, std::cin);
 
     return 0;
 }
