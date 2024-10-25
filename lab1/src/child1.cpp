@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
         write(STDOUT_FILENO, res.c_str(), res.size());
     }, std::cin);
 
-    close(STDOUT_FILENO);
+    fclose(file);
 
     return 0;
 }
