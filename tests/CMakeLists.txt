@@ -13,10 +13,22 @@ target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Тесты для 1 лр
 add_executable(lab1_test lab1_test.cpp ../lab1/src/parent.cpp ../lab1/include/parent.h
         ../lab1/src/utils.cpp ../lab1/include/utils.h)
 
 target_link_libraries(lab1_test PRIVATE GTest::GTest)
 target_include_directories(lab1_test PRIVATE ../lab1/include)
 
+
+
 add_test(lab1_test lab1_test)
+
+
+# Тесты для 2 лр
+add_executable(lab2_test lab2_test.cpp ../lab2/src/summing.cpp ../lab2/include/summing.h)
+
+target_link_libraries(lab2_test PRIVATE GTest::GTest)
+target_include_directories(lab2_test PRIVATE ../lab2/include)
+
+add_test(lab2_test lab2_test)
