@@ -272,7 +272,7 @@ bool sum_arrays(int K, int N, int** arrays, int* result, int max_threads, int& m
             data->active_threads = &active_threads;
             data->max_active_threads = &max_active_threads;
 
-            // Синхронизация для ограничения количества активных потоков
+            // Ограничение количества активных потоков
             pthread_mutex_lock(&mutex);
             while(active_threads >= max_threads){
                 pthread_cond_wait(&cond, &mutex);
@@ -306,7 +306,6 @@ bool sum_arrays(int K, int N, int** arrays, int* result, int max_threads, int& m
         }
     }
 
-    // Уничтожение мьютекса и условной переменной
     pthread_mutex_destroy(&mutex);
     pthread_cond_destroy(&cond);
 
