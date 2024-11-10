@@ -8,8 +8,10 @@ enable_testing()
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 
 
-include(FindThreads)
+find_package(Threads REQUIRED)
 
 add_subdirectory(lab1)
+
+add_subdirectory(lab2)
 
 add_subdirectory(tests)
