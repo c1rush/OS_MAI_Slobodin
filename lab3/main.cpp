@@ -1,4 +1,3 @@
-// main.cpp
 #include "parent.h"
 #include <iostream>
 

@@ -1,4 +1,3 @@
-// tests/lab3_test.cpp
 #include <gtest/gtest.h>
 #include <fstream>
 #include <string>
