@@ -82,5 +82,7 @@ int main() {
 }
 
 
-// export PATH_TO_LIB1=$(pwd)/bin/lib1.dylib
-// export PATH_TO_LIB2=$(pwd)/bin/lib2.dylib
+// export PATH_TO_LIB1=$(pwd)/lab4/lib1.dylib
+// export PATH_TO_LIB2=$(pwd)/lab4/lib2.dylib
+// echo $PATH_TO_LIB1
+// echo $PATH_TO_LIB2
