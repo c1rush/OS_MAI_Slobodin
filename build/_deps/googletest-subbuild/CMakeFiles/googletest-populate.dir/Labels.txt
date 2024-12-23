@@ -1,0 +1,14 @@
+# Target labels
+ googletest-populate
+# Source files and their labels
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule
+/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update.rule

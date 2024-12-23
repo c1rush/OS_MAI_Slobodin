@@ -1,8 +1,2 @@
-build/*
-.vscode/*
-
-*.exe
-*.out
-
-*.a
-
+build
+.vscode
