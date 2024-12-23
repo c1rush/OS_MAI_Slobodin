@@ -1,0 +1,1 @@
+/usr/local/bin/c++ CMakeFiles/lab567_test.dir/lab567_test.cpp.o "CMakeFiles/lab567_test.dir/__/lab5-7/src/manage_zmq.cpp.o" "CMakeFiles/lab567_test.dir/__/lab5-7/src/tree.cpp.o" -o lab567_test  -lzmq ../lib/libgtest_main.a ../lib/libgtest.a 
