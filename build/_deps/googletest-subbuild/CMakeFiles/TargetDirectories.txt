@@ -1,3 +1,0 @@
-/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
-/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
-/workspaces/OS_MAI_Slobodin/build/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir

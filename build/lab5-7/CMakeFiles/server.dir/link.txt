@@ -1,1 +1,0 @@
-/usr/local/bin/c++ -lzmq CMakeFiles/server.dir/src/server.cpp.o CMakeFiles/server.dir/src/tree.cpp.o CMakeFiles/server.dir/src/manage_zmq.cpp.o -o server  -lzmq 
