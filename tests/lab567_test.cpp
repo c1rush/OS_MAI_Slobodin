@@ -3,7 +3,7 @@
 #include "tree.hpp"
 #include "manage_zmq.hpp"
 
-// export PROGRAM_PATH="/workspaces/OS_MAI_Slobodin/build/lab5-7/server"
+// export PROGRAM_PATH="$(pwd)/lab5-7/server"
 
 TEST(Tests, PingTest) {
     std::string programPath = getenv("PROGRAM_PATH");

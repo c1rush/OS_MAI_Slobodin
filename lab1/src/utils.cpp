@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <cstdio>
+#include <algorithm>
 
 void CreatePipe(int pipeFd[2]) {
     if (pipe(pipeFd) == -1) {

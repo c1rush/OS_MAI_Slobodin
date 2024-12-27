@@ -57,7 +57,7 @@ std::string Node::Send(const std::string& str, int id) {
                     children[it->first]->close();
                     children.erase(it);
                     childrenPort.erase(id);
-                    std::cout << "Node " << id << " has been removed from children." << std::endl;
+                    // std::cout << "Node " << id << " has been removed from children." << std::endl;
                 }
             }
             return ans;
@@ -85,10 +85,10 @@ std::string Node::Kill() {
     // Для отладки
     // std::cout << "Node " << id << " sending kill command to all children." << std::endl;
     // std::cout << "Children before kill: ";
-    for (const auto& [child_id, socket] : children) {
-        std::cout << child_id << " ";
-    }
-    std::cout << std::endl;
+    // for (const auto& [child_id, socket] : children) {
+    //     std::cout << child_id << " ";
+    // }
+    // std::cout << std::endl;
 
     std::string ans;
     for (auto& child : children) {

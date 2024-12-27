@@ -4,6 +4,10 @@
 #include <unistd.h>
 #include <iostream>
 
+bool FileExists(const char* filename) {
+    return access(filename, F_OK) != -1;  // F_OK проверяет существование файла
+}
+
 bool StartProcess(int * pipe, const char* childPath, const char* filePath) {
     pid_t pid = fork();
 
@@ -15,6 +19,8 @@ bool StartProcess(int * pipe, const char* childPath, const char* filePath) {
     if (pid == 0){
         close(pipe[WRITE_END]);
         dup2(pipe[READ_END], READ_END);
+
+        close(pipe[READ_END]);
 
         if (execl(childPath, filePath, nullptr) == -1){
             std::cout << "Something went wrong when creating process " << childPath << std::endl;
@@ -32,6 +38,17 @@ void ParentRoutine(const char* pathToChild1, const char* pathToChild2, std::istr
     input.getline(filename1, 256);
     std::cout << "Enter filename for 2 process: " << std::endl;
     input.getline(filename2, 256);
+
+    // Проверяем существование файлов
+    if (!FileExists(filename1)) {
+        std::cerr << "Error: File " << filename1 << " does not exist." << std::endl;
+        return;  // Завершаем выполнение, если файл не существует
+    }
+
+    if (!FileExists(filename2)) {
+        std::cerr << "Error: File " << filename2 << " does not exist." << std::endl;
+        return;  // Завершаем выполнение, если файл не существует
+    }
 
     int pipe1[2], pipe2[2];
     CreatePipe(pipe1);
@@ -60,8 +77,8 @@ void ParentRoutine(const char* pathToChild1, const char* pathToChild2, std::istr
     close(pipe1[WRITE_END]);
     close(pipe2[WRITE_END]);
 
-    close(pipe1[READ_END]);
-    close(pipe2[READ_END]);
+    // close(pipe1[READ_END]);
+    // close(pipe2[READ_END]);
 
     wait(nullptr);
     wait(nullptr);
