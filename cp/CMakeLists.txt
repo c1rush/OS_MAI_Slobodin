@@ -1,25 +1,22 @@
-cmake_minimum_required(VERSION 3.20)
+# cp/CMakeLists.txt
 
-project(cp_allocators LANGUAGES CXX)
+# Создаём библиотеку cp, которая будет содержать оба аллокатора
+# add_library(cp
+#     blockAllocator.hpp
+#     freeListAllocator.hpp
+# )
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# # Указываем заголовочные файлы для установки
+# target_include_directories(cp PUBLIC src)
 
-# Добавляем флаги для AddressSanitizer
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
-set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
+# Создаём исполняемый файл
+add_executable(cp_main main.cpp)
 
-# Пусть исходники лежат в cp/src
-set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+add_executable(cp_benchmark3 benchmark_three.cpp)
 
-# Собираем список cpp-файлов
-set(SOURCES
-    ${SRC_DIR}/buddy_allocator.cpp
-    ${SRC_DIR}/list_allocator.cpp
-    ${SRC_DIR}/main.cpp
-)
+add_executable(cp_benchmark4 benchmark_four.cpp)
 
-add_executable(cp_run ${SOURCES})
+add_executable(cp_benchmark5 benchmark_five.cpp)
 
-# Включаем заголовочные пути (cp/src)
-target_include_directories(cp_run PRIVATE ${SRC_DIR})
+# Добавляем опции компиляции, если нужно
+target_compile_options(cp_main PRIVATE -Wall -Wextra -pedantic)
