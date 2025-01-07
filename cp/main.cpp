@@ -1,9 +1,9 @@
-#include "blockAllocator.hpp"  // Подключаем ваш новый аллокатор блоков 2^n
+#include "blockAllocator.hpp"
 #include "freeListAllocator.hpp"
 #include <vector>
 #include <random>
 #include <chrono>
-#include <iostream> // Для std::cerr и std::cout
+#include <iostream>
 
 int main() {
     const size_t memorySize = 1024 * 1024 * 32; // 32 MB
@@ -18,8 +18,8 @@ int main() {
         return 1;
     }
 
-    BlockAllocator blockAllocator(blockMemory, memorySize);   // Новый аллокатор блоков 2^n
-    FreeListAllocator freeListAllocator(freeListMemory, memorySize); // Free List Allocator
+    BlockAllocator blockAllocator(blockMemory, memorySize); 
+    FreeListAllocator freeListAllocator(freeListMemory, memorySize);
 
     std::vector<size_t> allocationSizes;
     allocationSizes.reserve(numAllocations);

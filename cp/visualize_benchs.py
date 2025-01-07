@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# Функция для проверки наличия файлов
 def check_files_exist(file_paths):
     for file in file_paths:
         if not os.path.isfile(file):

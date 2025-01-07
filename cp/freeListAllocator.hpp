@@ -78,16 +78,10 @@ public:
         }
     }
 
-    // Публичные методы для фрагментации и фактора использования
     void calculateFragmentation(size_t &internalFragmentation, size_t &externalFragmentation) const {
         internalFragmentation = 0;
         externalFragmentation = 0;
 
-        // Внутренняя фрагментация: сумма (размер блока - запрос)
-        // В данном случае, без хранения запросов, сложно точно определить
-        // Поэтому оставляем внутреннюю фрагментацию как 0
-
-        // Внешняя фрагментация: сумма свободных блоков
         Block *current = freeList;
         while (current) {
             externalFragmentation += current->size;

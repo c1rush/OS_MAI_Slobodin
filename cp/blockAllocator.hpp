@@ -22,7 +22,6 @@ public:
     }
 
     void *alloc(size_t blockSize) {
-        // Округляем размер блока до ближайшей степени двойки
         blockSize = roundUpToPowerOfTwo(blockSize);
 
         BlockPowerOfTwo *prev = NULL;
@@ -31,7 +30,6 @@ public:
         while (current) {
             if (current->size >= blockSize) {
                 if (current->size > blockSize) {
-                    // Если блок больше нужного, разделяем его
                     BlockPowerOfTwo *newBlock = (BlockPowerOfTwo *)((char *)current + blockSize);
                     newBlock->size = current->size - blockSize;
                     newBlock->next = current->next;
@@ -53,7 +51,7 @@ public:
             current = current->next;
         }
 
-        return NULL;  // Если не нашли подходящий блок
+        return NULL;
     }
 
     void freeBlock(void *ptr) {
@@ -76,17 +74,10 @@ public:
         }
     }
 
-    // Публичные методы для фрагментации и фактора использования
     void calculateFragmentation(size_t &internalFragmentation, size_t &externalFragmentation) const {
         internalFragmentation = 0;
         externalFragmentation = 0;
 
-        // Внутренняя фрагментация: сумма (размер блока - запрос)
-        // Поскольку BlockAllocator округляет до степени двойки, мы можем оценить внутреннюю фрагментацию
-        // Для упрощения считаем внутреннюю фрагментацию как разницу между округлённым размером и запрошенным
-        // Однако без хранения запрошенных размеров сложно точно определить
-        // Поэтому оставляем внутреннюю фрагментацию как 0
-        // externalFragmentation - сумма всех свободных блоков
         BlockPowerOfTwo *current = freeList;
         while (current) {
             externalFragmentation += current->size;
@@ -95,10 +86,8 @@ public:
     }
 
     double calculateUsageFactor() const {
-        // Используемая память = общее выделенное - внешняя фрагментация
         size_t externalFrag;
-        size_t internalFrag; // Всегда 0 в данной реализации
-        calculateFragmentation(internalFrag, externalFrag);
+        calculateFragmentation(/*internalFragmentation=*/std::ignore, externalFrag);
         size_t usedMemory = memorySize - externalFrag;
         return (static_cast<double>(usedMemory) / memorySize) * 100.0;
     }
