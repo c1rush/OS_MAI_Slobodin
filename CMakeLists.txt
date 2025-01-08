@@ -11,14 +11,16 @@ add_compile_options(-Wall -Wextra -pedantic)
 
 find_package(Threads REQUIRED)
 
-add_subdirectory(lab1)
+# add_subdirectory(lab1)
 
-add_subdirectory(lab2)
+# add_subdirectory(lab2)
 
-add_subdirectory(lab3)
+# add_subdirectory(lab3)
 
-add_subdirectory(lab4)
+# add_subdirectory(lab4)
 
-add_subdirectory(lab5-7)
+# add_subdirectory(lab5-7)
 
-add_subdirectory(tests)
+add_subdirectory(cp)
+
+# add_subdirectory(tests)
